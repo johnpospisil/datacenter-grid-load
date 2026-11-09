@@ -1,0 +1,10 @@
+# Pins that protect TensorFlow in the ~/tf environment. Install with:
+#   pip install -e ".[dev]" -c constraints-tf.txt
+h5py==3.14.0
+keras==3.11.3
+ml-dtypes==0.3.2
+numpy==1.26.2
+protobuf==4.25.8
+tensorflow==2.16.2
+tensorflow-macos==2.16.2
+pyarrow<22  # pyarrow 22+ needs numpy 2

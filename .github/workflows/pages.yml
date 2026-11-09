@@ -1,0 +1,47 @@
+# Publishes the report and the region explorer to GitHub Pages.
+# The data pipeline runs locally (`make all`); the report's computed outputs are committed in
+# report/_freeze/, so this job renders without data or Python and only needs Quarto.
+name: Publish site
+
+on:
+  push:
+    branches: [main]
+    paths: ["report/**", "app/**", ".github/workflows/pages.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+        with:
+          version: 1.10.19
+      - name: Render report (from the committed freeze)
+        run: quarto render report
+      - name: Add the region explorer
+        run: |
+          mkdir -p report/_site/explorer
+          cp -R app/index.html app/app.js app/style.css app/data report/_site/explorer/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: report/_site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

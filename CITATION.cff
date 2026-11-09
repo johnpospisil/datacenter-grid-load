@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this analysis or its code, please cite it as below."
+title: "The Load Nobody Planned For: Weather-Adjusted Electricity Demand Growth Across U.S. Grids, 2016–2026"
+authors:
+  - family-names: Pospisil
+    given-names: John
+version: 1.0.0
+date-released: 2026-11-08
+license: MIT
+repository-code: "https://github.com/johnpospisil/datacenter-grid-load"
+url: "https://johnpospisil.github.io/datacenter-grid-load/"
+abstract: >-
+  Hourly EIA-930 demand for 23 U.S. balancing authorities, weather-adjusted with
+  per-region models fitted on 2016–2019 (ERA5 weather), shows structural growth
+  since 2022 concentrated in data-center regions, led by PJM's Dominion zone
+  (+24%), and added as a flat 24/7 floor. Data through 2026-10-22.
+keywords:
+  - electricity demand
+  - data centers
+  - weather normalization
+  - EIA-930
+  - power grid

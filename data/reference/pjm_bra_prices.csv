@@ -1,0 +1,12 @@
+delivery_year,rto_price,dom_price,dom_in_rpm,rto_uncapped,dom_uncapped,cap,floor,shortfall_mw_ucap,source
+2018/19,164.77,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2 (RTO resource clearing price, $/MW-day UCAP)"
+2019/20,100.00,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2"
+2020/21,76.53,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2"
+2021/22,140.00,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2"
+2022/23,50.00,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2"
+2023/24,34.13,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2"
+2024/25,28.92,,false,,,,,,"PJM 2028/2029 BRA Report, Table 2"
+2025/26,269.92,444.26,true,,,,,,"PJM 2025/2026 BRA Report (DOM constrained LDA: $269.92 + $174.34 locational adder); DOM zone in RPM from 2025/26 (previously FRR)"
+2026/27,329.17,329.17,true,388.57,,329.17,175.00,,"PJM 2026/2027 BRA Report; uncapped simulation from the PJM 2027/2028 BRA Report"
+2027/28,333.44,333.44,true,529.80,542.83,333.44,179.55,6516.6,"PJM 2027/2028 BRA Report (cap $333.44, floor $179.55 UCAP; 6,516.6 MW UCAP below the Reliability Requirement)"
+2028/29,325.00,325.00,true,554.72,,325.00,175.00,6831.3,"PJM 2028/2029 BRA Report (cap $325.00, floor $175.00 UCAP; 6,831.3 MW UCAP below the Reliability Requirement)"

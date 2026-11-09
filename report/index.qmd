@@ -1,0 +1,337 @@
+---
+title: "The Load Nobody Planned For"
+subtitle: "Weather-adjusted electricity demand growth across U.S. grids, 2016 to 2026"
+author: "John Pospisil"
+date: last-modified
+date-format: "D MMMM YYYY"
+description: "After removing weather and calendar effects, which U.S. grid regions show real structural demand growth since 2022, and does it look like data-center load?"
+image: social/og_card.png
+jupyter: tf
+---
+
+```{python}
+#| include: false
+from glg import report as R
+N = R.numbers()
+def show(stem, caption=""):
+    print(R.fig(stem, caption))
+```
+
+::: {.callout-note appearance="simple"}
+**Data through `{python} N.cutoff`.** "Growth since 2022" compares calendar 2022 with the latest twelve months (`{python} N.last12`). This is a one-off analysis, not a live tracker. The code, tests and every number on this page are reproducible from public data ([how](#reproduce); [code on GitHub](https://github.com/johnpospisil/datacenter-grid-load)).
+:::
+
+::: {.callout-tip appearance="simple"}
+**Explore any region:** the [region explorer](explorer/index.html) shows each region's actual and weather-adjusted demand, its night and afternoon growth, and the new generation and queue behind it.
+:::
+
+## In short {.lead-findings}
+
+- **Dominion's grid in Virginia shows the clearest case.** After removing the effect of weather, electricity demand in PJM's Dominion zone grew **`{python} N.dom_g`** from 2022 to the latest twelve months. That is an extra **`{python} N.dom_gw`** of average demand, the fastest growth of any large U.S. grid region studied.
+- **The new load runs around the clock.** Dominion added `{python} N.dom_night_mw` at night and `{python} N.dom_aft_mw` in the afternoon, the same amount at 3 am as at 3 pm. Air-conditioning and offices don't behave like that. Data centers do, as do other loads that run around the clock, such as crypto mines and some factories; electric-vehicle charging leans to the night but is far too small to explain gigawatts.
+- **Dominion's own meters are consistent with it.** Dominion reports that its data-center customers' demand grew `{python} N.dc_metered_22_25` from 2022 to 2025, about **`{python} N.dc_share_22_25`** of the growth we measure for the zone over the same years.
+- **Regions with large data-center build-outs grew `{python} N.gap_all` percentage points faster than comparison regions,** depending on how the regions are grouped and which model is used. The gap never closes, but its size isn't precise.
+- **Local new power plants haven't kept up in Dominion's zone.** They add about `{python} N.dom_sup_twh` of expected energy, against `{python} N.dom_dem_twh` of new demand; the difference is met by imports and by existing plants running harder. Across PJM, capacity prices rose from `{python} N.bra_2425` per megawatt-day to `{python} N.bra_2526`, then to the $325–333 cap (context, not a causal claim).
+- **Texas grew fast too, but most of it doesn't look like data centers.** ERCOT's weather-adjusted demand grew `{python} N.erco_g` (`{python} N.erco_spec_range` across model choices). The large loads ERCOT tracks (data centers, crypto mining and industry together) peak at about 41% of that growth.
+
+```{python}
+#| output: asis
+show("hero")
+```
+
+## The question
+
+For about fifteen years, U.S. electricity demand barely moved. Efficiency gains (LED lighting, better appliances) roughly cancelled out population and economic growth. Since about 2022, utilities and grid operators have been forecasting a sharp rise, attributed mostly to data centers built for AI.
+
+Most coverage repeats those forecasts. This project asks a narrower question about what has *already happened*:
+
+> After removing the effects of weather and the calendar, which U.S. grid regions show structural growth in electricity demand since 2022? Is that growth concentrated in a rising 24/7 floor, as data-center load would be?
+
+I set out in advance what would make the answer **no**:
+
+1. the regions with big data-center build-outs grow no faster than comparable regions without them, **or**
+2. their growth appears only at daytime and peak hours, which would point to air-conditioning, electrification or general economic growth instead.
+
+For the six regions with the largest data-center build-outs, neither happened. (Southern Company, where data-center sales are also growing, is a partial exception: its growth so far is mostly daytime.) The rest of this page shows the evidence and where it is weaker than the headline suggests.
+
+::: {.callout-tip collapse="true"}
+## A few terms
+
+Balancing authority (BA)
+: The organisation that keeps supply and demand matched on one part of the grid, minute by minute. Some are single utilities (Arizona Public Service), some are large markets covering many states (PJM, ERCOT, MISO). The U.S. Energy Information Administration (EIA) publishes each one's demand every hour.
+
+Dominion zone (DOM)
+: One of PJM's transmission zones: most of Virginia plus north-east North Carolina. It contains Loudoun County ("Data Center Alley"), the world's largest data-center cluster. It is served mostly by Dominion Energy, plus several co-ops.
+
+MW, GW and TWh
+: A megawatt (MW) is a rate of power use; a gigawatt (GW) is 1,000 MW. Using 1 GW all year is about 8.8 terawatt-hours (TWh) of energy. A large data-center campus draws hundreds of MW.
+
+Weather-adjusted
+: What demand would have been with the weather of the baseline years. A hot summer raises demand without any new customers; removing that leaves the structural change.
+:::
+
+## How it works
+
+The method fits in one sentence: **learn how each region's demand responded to weather and the calendar in 2016–2019, predict what it "should" have been in every hour since, and call the difference structural growth.**
+
+In more detail:
+
+1. **Hourly demand** for 23 regions comes from EIA's Form 930, from 2015 to `{python} N.cutoff`. Typically under 1% of hours have errors (gaps, spikes, stuck readings); they are flagged by documented rules and left out, never patched over.
+2. **Weather** comes from ERA5, a gridded global weather reconstruction. Each region's temperature, humidity and "degree-hours" are averaged over the counties it serves, weighted by where people live, because people's heating and cooling is what makes demand weather-sensitive.
+3. **A model per region** (a generalised additive model, GAM) learns how demand depends on temperature by hour of day, recent temperatures (buildings take time to heat up), humidity, season, weekends and holidays. It is fitted only on 2016–2019, and it has **no time trend**, so it can't extrapolate growth.
+4. **Structural growth** is actual demand divided by the model's prediction, summed over each period. If a region used 24% more than its 2016–2019 self would have in the same weather, structural growth is +24%.
+5. **COVID** (March 2020 to December 2021) is left out of every baseline and shaded on every chart.
+
+The model is tested on years it didn't see: with one baseline year held out, it follows the shape of hourly demand with an average error of `{python} N.shape_mape`, in every region but one. Details, and the one that failed, are in the [appendix](#model-validation).
+
+## Where demand grew
+
+```{python}
+#| output: asis
+print(R.growth_table())
+```
+
+::: {.small}
+Growth from calendar 2022 to `{python} N.last12`, weather-adjusted, with 95% intervals. The intervals cover resampling and the choice of baseline years only; they are narrower than the spread across model specifications in [How sure are we?](#how-sure-are-we), which is the better guide to uncertainty. *LightGBM / degree-day*: the same measure from two other model families. *Beyond own trend*: after also removing each region's 2016–2019 trend, so growth that had started before 2022 isn't counted as new (an upper bound for regions that were shrinking then, such as California and New England). *Night ÷ afternoon*: MW added at 1–5 am divided by MW added at 2–7 pm (local time).
+¹ Measured from 2023, because Gulf Power moved from Southern Company to FPL in mid-2022. ² To August 2025: from September 2025, EIA's figures for Arizona Public Service run 8–22% above the utility's own federal filing, so the later months are left out. ³ In neither headline group (see [How sure are we?](#how-sure-are-we)).
+:::
+
+Every row has its own page in the [region explorer](explorer/index.html).
+
+The **data-center group** is six regions with large, well-documented build-outs: Dominion, ERCOT, Phoenix, Nevada, Grant County (Quincy, Washington) and Bonneville (whose customers include data-center towns along the Columbia River in Oregon). The **comparison group** is eight regions without large build-outs: MISO, New York, New England, California, PacifiCorp East, and three Florida and Carolinas utilities. The median data-center region grew **`{python} N.dc_med`**, the median comparison region **`{python} N.comp_med`**.
+
+## Dominion: the clearest case
+
+Three things make Dominion's zone the strongest evidence in the data set: the size of its growth, its shape, and the fact that the utility publishes metered data-center demand to check it against.
+
+### A rising floor
+
+```{python}
+#| output: asis
+show("chart2_rising_floor")
+```
+
+A data center draws roughly the same power at 3 am as at 3 pm. Growth from air-conditioning, offices or daytime industry shows up mostly in the afternoon. So the test is to measure growth separately in night and afternoon hours.
+
+In Dominion's zone, night-time demand grew **`{python} N.dom_night_g`** and afternoon demand `{python} N.dom_aft_g`. In megawatts the two are identical: `{python} N.dom_night_mw` and `{python} N.dom_aft_mw` (the percentage is higher at night only because the night starts from a lower base). The part of the growth that responds to temperature is only `{python} N.dom_weather_mw`. In neighbouring Duke Energy Progress East, with the same climate and no data-center cluster on Loudoun's scale, night-time demand grew `{python} N.cple_night_g`.
+
+Across the six data-center regions, the median night-time growth was `{python} N.dc_night_med`, against `{python} N.pooled_night` for the comparison regions.
+
+### Every hour, every week
+
+```{python}
+#| output: asis
+show("chart3_dom_heat_calendar")
+```
+
+Each column is a week and each row an hour of the day; colour is demand above (orange-red) or below (blue) what weather and the calendar predict. Dominion's chart turns orange in every hour together, year after year. Duke Progress East's stays mostly neutral, with summer and winter patches where the weather model is imperfect.
+
+### What Dominion's meters say
+
+```{python}
+#| output: asis
+show("chart8_dominion_metered")
+```
+
+Dominion Energy reports the demand of its data-center customers to PJM. Their combined demand at the system peak reached `{python} N.dc_peak_2025` in 2025, and their billing demand `{python} N.dc_billing_2026` in 2026. From 2022 to 2025 it grew `{python} N.dc_metered_22_25`, while our weather-adjusted estimate for the zone grew `{python} N.dom_resid_22_25`. Measured from 2019, the share is about `{python} N.dc_share_19_25`.
+
+So Dominion's own data centers account for roughly **`{python} N.dc_share_22_25`–`{python} N.dc_share_19_25` of the growth** we measure. The two don't have to match:
+
+- **Not the same territory.** PJM's Dominion zone also includes co-ops (NOVEC, Rappahannock Electric) that serve data centers of their own, outside Dominion's metered figures.
+- **Not the same measure.** Dominion reports peak megawatts; we report average megawatts.
+
+The comparison says the growth is **consistent with** data-center load, and that most of it is directly metered as such. It doesn't decompose the remainder.
+
+## Other regions
+
+**Texas (ERCOT).** ERCOT added the most megawatts of any region: `{python} N.erco_gw` of average demand, `{python} N.erco_g`. The growth is mostly flat across the day (night ÷ afternoon `{python} N.erco_n2a`), but three things argue against reading it as a data-center story:
+
+- ERCOT's own figures put the observed peak of all approved large loads (data centers, crypto mining and industry together) at 3.9 GW in March 2026, about 41% of the growth. That is a guide, not a hard cap: smaller loads outside ERCOT's large-load process aren't counted, and load served behind the meter (such as a campus with its own gas plant) never appears in grid demand at all.
+- Crypto mining and oil-field electrification also run around the clock.
+- Unlike Dominion, ERCOT's growth has a sizeable weather-sensitive part (`{python} N.erco_weather_mw`), consistent with population growth adding air-conditioning load.
+
+Adding a control for state employment halves the estimate to `{python} N.erco_emp`. ERCOT grew strongly; data centers are one contributor among several.
+
+**Phoenix (APS + SRP).** Weather-adjusted demand grew `{python} N.azps_srp_g` (to August 2025), and more at night (`{python} N.azps_srp_night_g`) than in the afternoon (`{python} N.azps_srp_aft_g`). Rooftop solar lowers measured afternoon demand, which flatters that ratio, but the night-time growth contains no solar. Phoenix is also home to new semiconductor fabs (TSMC in north Phoenix, Intel in Chandler), which are also flat 24/7 loads. The load shape can't tell them apart from data centers. APS reports that about 200 MW of its 2026 peak growth came from data centers.
+
+**Pacific Northwest.** Bonneville grew `{python} N.bpat_g`, smoothly and evenly by hour, which is consistent with data-center growth along the Columbia River. But there is no utility disclosure to check it against, so it remains a lead, not a finding. Grant County PUD reports 280 average MW of data-center load (37% of its system), but most of it predates 2022: the region was already growing `{python} N.gcpd_trend` before then.
+
+**Georgia and Alabama (Southern Company).** Southern reports data-center sales up 55% in a year, yet its weather-adjusted growth since 2023 (`{python} N.soco_g`) sits mostly in afternoon and weather-sensitive hours (night ÷ afternoon `{python} N.soco_n2a`). This is unresolved: the data-center megawatts may still be small next to a system that averages about 27 GW.
+
+**PJM as a whole** grew `{python} N.pjm_g` (`{python} N.pjm_gw`), about half of it in the Dominion zone.
+
+## Is supply keeping up?
+
+```{python}
+#| output: asis
+show("chart4_supply_gap")
+```
+
+To compare like with like, new power plants are converted from megawatts of capacity to expected energy, using each technology's typical capacity factor: solar runs at about a quarter of its rating on average, a gas combined-cycle plant at about 60%. Batteries count as zero, because they move energy in time rather than produce it.
+
+- **Dominion's zone** added `{python} N.dom_sup_twh` of expected local generation since 2022 (new solar, largely offset by coal and gas retirements), against `{python} N.dom_dem_twh` of new demand: about **`{python} N.dom_sup_share`**. The difference is met by imports from the rest of PJM and by running existing plants harder; the data can't say in what mix. The 2.6 GW Coastal Virginia Offshore Wind project is due in 2027, outside this window.
+- **ERCOT** added `{python} N.erco_sup_twh` against `{python} N.erco_dem_twh`, mostly solar and wind, plus `{python} N.erco_storage_gw` of batteries.
+- **PJM as a whole** added `{python} N.pjm_sup_twh` against `{python} N.pjm_dem_twh`, as coal retirements offset much of its new solar and gas.
+
+```{python}
+#| output: asis
+show("chart5_queue_backlog")
+```
+
+Plenty of projects are waiting to connect: `{python} N.dom_queue_gw` in Dominion's zone alone, and 1.9 TW nationally. But historically only about one request in five has reached operation, and the median project took three to eight years from request to operation. If Dominion's queue completes at its past rate (`{python} N.dom_queue_compl` of megawatts), it would add about `{python} N.dom_queue_exp`, under a third of the demand growth already seen.
+
+## Prices
+
+Prices also move with gas prices, weather, retirements, transmission and market rules, so nothing here estimates what data centers did to prices. These charts are context.
+
+```{python}
+#| output: asis
+show("chart6_pjm_capacity")
+```
+
+PJM's capacity auction pays power plants to be available in future years. Its price went from `{python} N.bra_2425` per megawatt-day for 2024/25 to `{python} N.bra_2526` for 2025/26 (`{python} N.bra_2526_dom` in the Dominion zone), then cleared at a regulatory cap three times in a row. The last two auctions fell 6.5–6.8 GW short of PJM's reliability requirement. PJM attributes most of its higher load forecast to "additional Large Loads". In the energy market, the Dominion zone's real-time price was 29% above the PJM average in 2025, almost all of it congestion: the price of importing power over constrained lines.
+
+```{python}
+#| output: asis
+show("retail_prices")
+```
+
+Retail prices tell a more mixed story. Virginia's inflation-adjusted retail price rose 14% from 2021 to the latest twelve months, against 5% nationally, though it remains below the U.S. average. Texas, Georgia and Arizona all fell slightly in real terms. Fast demand growth hasn't translated into higher retail bills everywhere; rates are set by regulators, with lags.
+
+## How sure are we?
+
+The headline was re-estimated `{python} N.n_specs` ways: with two other model families (gradient-boosted trees and a simple degree-day regression), a shorter baseline (2017–2019), a model fitted on 2022 itself, a control for state employment, and, for Phoenix, a 0.3 °C warmer temperature record (ERA5 may miss some of Phoenix's recent urban warming).
+
+```{python}
+#| output: asis
+show("robustness_forest")
+```
+
+```{python}
+#| output: asis
+print(R.robustness_table())
+```
+
+::: {.small}
+Weather-adjusted growth since 2022, %, under each specification. The employment control is a deliberately harsh test: employment rises partly *because of* data-center construction, so it absorbs some of the effect being measured.
+:::
+
+**The grouping matters more than the model.** The six-region data-center group was chosen after the growth estimates were in. Before any weather-adjusted result, a wider set of ten "focus" regions was written down, including PJM as a whole, Southern, Duke Carolinas and TVA, which grew slowly. Against that pre-registered grouping, the gap is smaller but still positive under every specification:
+
+```{python}
+#| output: asis
+print(R.medians_table())
+```
+
+Hence the range in the summary: data-center regions grew **`{python} N.gap_all` points faster** (`{python} N.ratio_all` as fast), depending on how the regions are grouped.
+
+**Against what utilities report:**
+
+```{python}
+#| output: asis
+print(R.utility_table())
+```
+
+**Other loads that could produce the same pattern:**
+
+- **Population and economic growth** would show as weather-sensitive and daytime growth. That is visible in ERCOT, and almost absent in Dominion.
+- **Electric vehicles** charge mostly at night, so they do raise the floor. But 100,000 EVs average only about 40 MW, small next to Dominion's `{python} N.dom_gw`.
+- **Heat pumps** would show as more heating load per cold degree. That part of growth is negligible in Dominion (`{python} N.dom_weather_mw` in total weather sensitivity) and negative in Bonneville.
+- **Crypto mining** (Texas) and **semiconductor fabs** (Phoenix) are flat 24/7 loads, which the load shape can't distinguish from data centers.
+
+**What survives every check**
+
+1. Dominion's weather-adjusted demand grew the most of any region since 2022 (`{python} N.dom_spec_range` across specifications). The growth is a flat, around-the-clock addition of about `{python} N.dom_gw`, and `{python} N.dc_share_22_25`–`{python} N.dc_share_19_25` of it is Dominion's own metered data-center load.
+2. Data-center regions outgrew comparison regions under every specification and grouping, by `{python} N.gap_all` points.
+3. Dominion's zone added local generation equal to only about `{python} N.dom_sup_share` of its new demand.
+4. Phoenix grew `{python} N.azps_srp_spec_range` (to August 2025), robust to the weather check.
+
+**What doesn't**
+
+1. "Texas grew 20% because of data centers." The estimate is `{python} N.erco_spec_range` across specifications, and the large loads ERCOT tracks account for well under half of it.
+2. A precise "data-center regions grow 4× faster" figure. The ratio ranges from `{python} N.ratio_all`.
+3. Any attribution for Bonneville (no disclosure), Grant County (`{python} N.gcpd_spec_range`, much of it older) or Nevada (`{python} N.nevp_spec_range`).
+
+## Caveats
+
+- **Consistent with, not caused by.** No public data set measures every data center's load. The pattern here (large, flat, around-the-clock growth where data centers are being built, matching a utility's metered figures) is consistent with data-center load. It is not proof, and other 24/7 loads exist.
+- **The Dominion zone is not Dominion Energy.** PJM's zone is larger than the utility's service territory, so the two numbers don't need to match.
+- **Short baseline for Dominion.** EIA's public data for the Dominion zone only starts in September 2018, so its baseline is about 16 months, not four years. A check against PJM's own metered load for 2016–2019 (internal-use data, not published here) gives practically the same growth since 2022: a different baseline shifts 2022 and the latest year together. It mainly moves the *level* relative to 2019 (the index charts), and only slightly.
+- **Phoenix ends in August 2025.** From September 2025, EIA and APS's own filing disagree by 8–22%; it's unresolved which is right.
+- **Boundary changes.** Gulf Power moved from Southern Company to FPL in mid-2022, so both are measured from 2023. The Phoenix split between APS and SRP swings in 2025–26, so they are combined.
+- **The last month is partial** (October 2026 runs to the 22nd). Ending in September instead lowers Dominion's growth by 0.5 points.
+- **Grid demand is net of rooftop solar.** EIA-930 sees only what the grid delivers. Growing rooftop solar lowers measured afternoon demand (most in California, Arizona, New England and New York), which lowers those regions' growth and makes any region's growth look more night-heavy. The night-time comparison contains no solar and is the robust test.
+- **Recent data are preliminary.** Utilities can revise recent EIA-930 months, and the last few months of ERA5 weather are an early release that is occasionally revised.
+- **Prices are descriptive.**
+
+# Appendix: methods {#appendix}
+
+## Data
+
+| Source | Used for |
+|---|---|
+| EIA Form 930, Hourly Electric Grid Monitor (six-month bulk files) | Hourly demand, July 2015 to `{python} N.cutoff`; Dominion from its PJM subregion series |
+| FERC Form 714 (via Catalyst Cooperative's PUDL) | Independent check of annual totals |
+| EIA Form 861 (via PUDL) and Census county population | Which counties each region serves, and population weights |
+| Copernicus ERA5 hourly reanalysis | Temperature and dewpoint, 0.25° grid |
+| NOAA Integrated Surface Database | Check of ERA5 at airports |
+| BLS state employment (via FRED) | Robustness control only |
+| EIA-860M (September 2026) and Electric Power Monthly | Generator additions and retirements, capacity factors |
+| LBNL and GridTracker, *Queued Up: 2026 Edition* | Interconnection queues |
+| PJM auction reports, PJM Market Monitor, EIA, gridstatus | Prices |
+| Dominion Energy, ERCOT, APS, SRP, Grant PUD, Southern Company | Utility disclosures (cited row by row in `data/reference/`) |
+
+Full licences and attribution are in [NOTICE.md](https://github.com/johnpospisil/datacenter-grid-load/blob/main/NOTICE.md); every cleaning rule, mapping decision and known data problem is in [DATA.md](https://github.com/johnpospisil/datacenter-grid-load/blob/main/DATA.md); the pre-publication review is in [REVIEW.md](https://github.com/johnpospisil/datacenter-grid-load/blob/main/report/REVIEW.md).
+
+## Cleaning
+
+EIA-930 has gaps, spikes, stuck values and occasional unit errors. Each hour is flagged by seven documented rules (missing, negative, zero, six or more identical hours in a row, more than 2× or less than 0.4× the weekly median, single-hour spikes beyond 5 robust standard deviations, and EIA's own imputation flag). Flagged hours are set to missing; gaps of up to three hours are filled by straight-line interpolation and longer ones stay missing. The raw value is always kept alongside.
+
+Six balancing authorities were excluded for data problems (for example, long runs of negative demand, or a sudden 50% step). Annual totals were compared with each utility's own FERC Form 714 filing: 185 of 210 region-years agree within 3%, and every data-center region with a filing agrees in every baseline year. The disagreements are documented, Three regions are left out of the headline comparisons: Colorado and Louisville (unexplained level breaks) and Douglas County PUD (failed validation).
+
+## Region to county mapping
+
+Each region's weather is the population-weighted average over the counties it serves. The county list comes from EIA-861 utility service territories, with each county's residential customers allocated between utilities so that a county split between two regions is weighted accordingly. The map is rebuilt for every year, following boundary changes. Population weights are fixed at 2020, so people moving can't move the weather series. Changing the mapping method moves a region's temperature by a near-constant offset (hourly correlation ≥ 0.997), which the model absorbs.
+
+## Model validation {#model-validation}
+
+```{python}
+#| output: asis
+show("chart7_validation")
+```
+
+Each model is fitted with one baseline year held out and scored on it. *Shape MAPE* is the average hourly error after removing that year's overall level, which isolates how well the model follows weather and the calendar. The level error is reported separately as each region's baseline *residual trend*: regions already growing in 2016–2019 (ERCOT, Grant County) are under-predicted in 2019 by design, because the model has no trend. That trend is why the report also gives growth *beyond* each region's own trend.
+
+```{python}
+#| output: asis
+print(R.validation_table())
+```
+
+::: {.small}
+GAM, leave-one-year-out (Dominion: leave one month out, because its public baseline is short). *Fail*: shape MAPE above 5%. *Flag*: held-out MAPE above 5%, a residual trend beyond ±1%/yr, or a short baseline. Gradient-boosted trees (LightGBM) fit slightly better out of sample, but partly memorise each baseline year's level, so the GAM is the headline model and the trees are the check.
+:::
+
+## Growth measure and intervals
+
+Growth is a ratio of sums: total actual demand over total predicted demand, for the latest twelve months, divided by the same ratio for 2022, minus one. The 95% intervals combine two sources of uncertainty: refitting the model with each baseline year left out (a jackknife), and resampling 14-day blocks of residuals (a block bootstrap).
+
+## Load shape
+
+Night is 1–5 am and afternoon 2–7 pm, local time. The hourly residual is also split into a flat 24/7 part, a weather-sensitive part (proportional to cooling and heating degree-hours) and a daytime-shape part. A region's growth is classed as a "24/7 floor" if the night gained at least 0.8 times the afternoon's megawatts.
+
+## Supply
+
+New generation is from EIA-860M, by each unit's months in service, converted to energy with national capacity factors (2023–2025 averages). Replacing them with state-level factors from EIA-923 changes no conclusion (Dominion: `{python} N.dom_sup_share_reg` instead of `{python} N.dom_sup_share`). Dominion's plants are the PJM plants in the counties Dominion serves.
+
+## Reproduce {#reproduce}
+
+```bash
+git clone https://github.com/johnpospisil/datacenter-grid-load
+cd datacenter-grid-load
+pip install -e ".[dev]"
+cp .env.example .env    # EIA API key; ERA5 needs a Copernicus CDS key
+make all                # ingest → clean → features → models → figures → tests
+quarto render report    # this page
+```
+
+Headline numbers are pinned in the test suite, so a change in data or method that moves them fails loudly. Figures are produced by code only, in light and dark versions.

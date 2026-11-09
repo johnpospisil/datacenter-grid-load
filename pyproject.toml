@@ -1,0 +1,50 @@
+[project]
+name = "glg"
+version = "1.0.0"
+description = "Weather-adjusted electricity demand growth across U.S. grids, 2016-today"
+license = { text = "MIT" }
+authors = [{ name = "John Pospisil" }]
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "altair",
+    "cdsapi",
+    "duckdb",
+    "geopandas",
+    "gridstatus",
+    "holidays",
+    "lightgbm",
+    "matplotlib",
+    "netcdf4",
+    "polars",
+    "pyarrow",
+    "pygam",
+    "python-dotenv",
+    "requests",
+    "scikit-learn",
+    "scipy",
+    "shapely",
+    "statsmodels",
+    "tenacity",
+    "xarray",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "ipykernel"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/glg"]
+
+[tool.ruff]
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

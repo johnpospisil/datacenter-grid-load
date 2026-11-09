@@ -1,0 +1,24 @@
+ba,eia930_series,ferc714_respondent_ids,relation,note
+PJM,PJM,119,same,PJM Interconnection LLC
+ERCO,ERCO,58,same,ERCOT
+AZPS,AZPS,16,same,Arizona Public Service
+SRP,SRP,133,same,Salt River Project
+DUK,DUK,51,same,Duke Energy Carolinas
+TVA,TVA,152,same,Tennessee Valley Authority
+NEVP,NEVP,99;138,same,NV Energy = Nevada Power + Sierra Pacific (both file separately)
+GCPD,GCPD,128,same,PUD No. 2 of Grant County
+BPAT,BPAT,21,same,Bonneville Power Administration
+DOPD,DOPD,127,same,PUD No. 1 of Douglas County
+MISO,MISO,203,same,MISO
+CISO,CISO,24,same,California ISO
+NYIS,NYIS,100,same,New York ISO
+ISNE,ISNE,76,same,ISO New England
+FPL,FPL,63,same,Florida Power & Light
+FPC,FPC,123;215,definition_difference,"Duke Energy Florida (respondent 123 to 2020, 215 from 2021). The EIA-930 FPC BA also serves other utilities' load (e.g. Seminole, FMPA members), so EIA runs ~31-35% above the FERC planning area"
+CPLE,CPLE;CPLW,122;214,same,"Duke Energy Progress files one planning area covering both its BAs (CPLE + CPLW); respondent 122 to 2020, 214 from 2021"
+LGEE,LGEE,87,same,LG&E and KU
+PSCO,PSCO,124,same,Public Service Co. of Colorado
+SWPP,SWPP,146,same,Southwest Power Pool
+PACE,PACE;PACW,194,same,"PacifiCorp files one planning area for both its BAs, so PACE + PACW are compared together"
+SOCO,SOCO,,none,"No matching planning area: the Southern Company BA (~240 TWh) is filed by its member utilities separately (Alabama, Georgia, Mississippi Power, MEAG, ...), which don't sum to the BA"
+DOM,DOM,,none,"PJM zone, no FERC-714 filing. Checked internally against PJM metered load (not published)"

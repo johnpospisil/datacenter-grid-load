@@ -1,0 +1,82 @@
+ba,name,region,eia_time_zone,us_ba,generation_only,has_subregions,active,activation_date,retirement_date,tz_reporting,tz_civil,first_hour_utc,last_hour_utc,n_hours,n_demand,n_subregions
+AEC,PowerSouth Energy Cooperative,SE,Central,True,False,False,False,,2021-09-01,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2021-09-01 05:00:00+00:00,54096.0,53787.0,0
+AECI,"Associated Electric Cooperative, Inc.",MIDW,Central,True,False,False,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,99128.0,0
+AESO,Alberta Electric System Operator,CAN,,False,False,False,True,,,,,,,,,0
+AVA,Avista Corporation,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98724.0,0
+AVRN,"Avangrid Renewables, LLC",NW,Pacific,True,True,False,True,2018-07-31,,America/Los_Angeles,America/Los_Angeles,2018-07-31 08:00:00+00:00,2026-10-22 07:00:00+00:00,72120.0,0.0,0
+AZPS,Arizona Public Service Company,SW,Arizona,True,False,False,True,,,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99079.0,0
+BANC,Balancing Authority of Northern California,CAL,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98799.0,0
+BCHA,British Columbia Hydro and Power Authority,CAN,,False,False,False,True,,,,,,,,,0
+BHBA,Black Hills Energy,NW,Mountain,True,False,True,True,2026-04-01,,America/Denver,America/Denver,2026-04-01 07:00:00+00:00,2026-10-23 06:00:00+00:00,4920.0,3408.0,3
+BPAT,Bonneville Power Administration,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99103.0,0
+CEN,Centro Nacional de Control de Energia,MEX,,False,False,False,True,2017-10-31,,,,,,,,0
+CFE,Comision Federal de Electricidad,MEX,,False,False,False,False,,2018-07-01,,,,,,,0
+CHPD,Public Utility District No. 1 of Chelan County,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99010.0,0
+CISO,California Independent System Operator,CAL,Pacific,True,False,True,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98742.0,4
+CPLE,Duke Energy Progress East,CAR,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98883.0,0
+CPLW,Duke Energy Progress West,CAR,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98954.0,0
+DEAA,"Arlington Valley, LLC",SW,Arizona,True,True,False,True,,,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2026-10-22 07:00:00+00:00,99144.0,0.0,0
+DOPD,PUD No. 1 of Douglas County,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,96292.0,0
+DUK,Duke Energy Carolinas,CAR,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,99073.0,0
+EEI,"Electric Energy, Inc.",MIDW,Central,True,True,False,False,,2020-02-29,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2020-02-29 06:00:00+00:00,40897.0,0.0,0
+EPE,El Paso Electric Company,SW,Arizona,True,False,False,True,,,America/Phoenix,America/Denver,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99083.0,0
+ERCO,"Electric Reliability Council of Texas, Inc.",TEX,Central,True,False,True,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,98856.0,8
+FMPP,Florida Municipal Power Pool,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98395.0,0
+FPC,"Duke Energy Florida, Inc.",FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,99050.0,0
+FPL,Florida Power & Light Co.,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98309.0,0
+GCPD,"Public Utility District No. 2 of Grant County, Washington",NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99142.0,0
+GLHB,GridLiance,MIDW,Central,True,True,False,False,2020-02-29,2022-09-01,America/Chicago,America/Chicago,2020-02-29 07:00:00+00:00,2022-09-01 05:00:00+00:00,21959.0,0.0,0
+GRID,"Gridforce Energy Management, LLC",NW,Pacific,True,True,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-22 07:00:00+00:00,99144.0,0.0,0
+GRIF,"Griffith Energy, LLC",SW,Arizona,True,True,False,False,,2023-11-01,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2023-11-01 07:00:00+00:00,73080.0,0.0,0
+GRMA,"Gila River Power, LLC",SW,Arizona,True,True,False,False,,2018-05-03,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2018-05-03 07:00:00+00:00,24888.0,0.0,0
+GVL,Gainesville Regional Utilities,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,95424.0,0
+GWA,"NaturEner Power Watch, LLC",NW,Mountain,True,True,False,True,,,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2026-10-22 06:00:00+00:00,99144.0,0.0,0
+HGMA,"New Harquahala Generating Company, LLC",SW,Arizona,True,True,False,False,,2025-06-01,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2025-06-01 07:00:00+00:00,86952.0,0.0,0
+HQT,Hydro-Quebec TransEnergie,CAN,,False,False,False,True,,,,,,,,,0
+HST,City of Homestead,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98020.0,0
+IESO,Ontario IESO,CAN,,False,False,False,True,,,,,,,,,0
+IID,Imperial Irrigation District,CAL,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98568.0,0
+IPCO,Idaho Power Company,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99065.0,0
+ISNE,ISO New England,NE,Eastern,True,False,True,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,99136.0,8
+JEA,JEA,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98687.0,0
+LDWP,Los Angeles Department of Water and Power,CAL,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98580.0,0
+LGEE,Louisville Gas and Electric Company and Kentucky Utilities Company,MIDW,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,98930.0,0
+MHEB,Manitoba Hydro,CAN,,False,False,False,True,,,,,,,,,0
+MISO,"Midcontinent Independent System Operator, Inc.",MIDW,Eastern,True,False,True,True,,,America/New_York,America/New_York,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,99048.0,6
+NBSO,New Brunswick System Operator,CAN,,False,False,False,True,,,,,,,,,0
+NEVP,Nevada Power Company,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98835.0,0
+NSB,Utilities Commission of New Smyrna Beach,FLA,Eastern,True,False,False,False,,2020-01-08,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2020-01-08 05:00:00+00:00,39649.0,36669.0,0
+NWMT,NorthWestern Corporation,NW,Mountain,True,False,False,True,,,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2026-10-23 06:00:00+00:00,99168.0,99070.0,0
+NYIS,New York Independent System Operator,NY,Eastern,True,False,True,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,99144.0,11
+OVEC,Ohio Valley Electric Corporation,MIDA,Eastern,True,False,False,False,,2018-12-01,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2018-12-01 05:00:00+00:00,29977.0,23269.0,0
+PACE,PacifiCorp East,NW,Mountain,True,False,False,True,,,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2026-10-23 06:00:00+00:00,99168.0,96527.0,0
+PACW,PacifiCorp West,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,95447.0,0
+PGE,Portland General Electric Company,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98588.0,0
+PJM,"PJM Interconnection, LLC",MIDA,Eastern,True,False,True,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98902.0,20
+PNM,Public Service Company of New Mexico,SW,Arizona,True,False,True,True,,,America/Phoenix,America/Denver,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99144.0,10
+PSCO,Public Service Company of Colorado,NW,Mountain,True,False,False,True,,,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2026-10-23 06:00:00+00:00,99168.0,99091.0,0
+PSEI,"Puget Sound Energy, Inc.",NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,85968.0,0
+SC,South Carolina Public Service Authority,CAR,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,95789.0,0
+SCEG,"Dominion Energy South Carolina, Inc.",CAR,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98663.0,0
+SCL,Seattle City Light,NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99056.0,0
+SEC,Seminole Electric Cooperative,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98419.0,0
+SEPA,Southeastern Power Administration,SE,Central,True,True,False,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-22 05:00:00+00:00,99144.0,0.0,0
+SIKE,Sikeston Board Of Municipal Utilities,MIDW,Central,True,True,False,True,2025-06-01,,America/Chicago,America/Chicago,2025-06-01 06:00:00+00:00,2026-10-22 05:00:00+00:00,12192.0,0.0,0
+SOCO,"Southern Company Services, Inc. - Trans",SE,Central,True,False,False,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,97579.0,0
+SPA,Southwestern Power Administration,CENT,Central,True,False,False,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,98976.0,0
+SPC,Saskatchewan Power Corporation,CAN,,False,False,False,True,,,,,,,,,0
+SRP,Salt River Project Agricultural Improvement and Power District,SW,Arizona,True,False,False,True,,,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,97819.0,0
+SWPP,Southwest Power Pool,CENT,Central,True,False,True,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,96660.0,17
+SWPW,Southwest Power Pool West Balancing Authority Area,NW,Central,True,False,True,True,2026-04-01,,America/Chicago,America/Chicago,2026-04-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,4920.0,4895.0,3
+TAL,City of Tallahassee,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,98424.0,0
+TEC,Tampa Electric Company,FLA,Eastern,True,False,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-23 04:00:00+00:00,99168.0,99063.0,0
+TEPC,Tucson Electric Power,SW,Arizona,True,False,False,True,,,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,97444.0,0
+TIDC,Turlock Irrigation District,CAL,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,98907.0,0
+TPWR,"City of Tacoma, Department of Public Utilities, Light Division",NW,Pacific,True,False,False,True,,,America/Los_Angeles,America/Los_Angeles,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99144.0,0
+TVA,Tennessee Valley Authority,TEN,Central,True,False,False,True,,,America/Chicago,America/Chicago,2015-07-01 06:00:00+00:00,2026-10-23 05:00:00+00:00,99168.0,98859.0,0
+WACM,Western Area Power Administration - Rocky Mountain Region,NW,Arizona,True,False,False,False,,2026-04-01,America/Phoenix,America/Denver,2015-07-01 08:00:00+00:00,2026-04-01 07:00:00+00:00,94248.0,93576.0,0
+WALC,Western Area Power Administration - Desert Southwest Region,SW,Arizona,True,False,False,True,,,America/Phoenix,America/Phoenix,2015-07-01 08:00:00+00:00,2026-10-23 07:00:00+00:00,99168.0,99048.0,0
+WAUE,Western Area Power Administration - Upper Great Plains East,NW,Mountain,True,False,False,False,,2015-10-01,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2015-10-01 06:00:00+00:00,2208.0,0.0,0
+WAUW,Western Area Power Administration - Upper Great Plains West,NW,Mountain,True,False,False,False,,2026-04-01,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2026-04-01 06:00:00+00:00,94248.0,92562.0,0
+WWA,"NaturEner Wind Watch, LLC",NW,Mountain,True,True,False,False,,2025-10-01,America/Denver,America/Denver,2015-07-01 07:00:00+00:00,2025-10-01 06:00:00+00:00,89880.0,0.0,0
+YAD,"Alcoa Power Generating, Inc. - Yadkin Division",CAR,Eastern,True,True,False,True,,,America/New_York,America/New_York,2015-07-01 05:00:00+00:00,2026-10-22 04:00:00+00:00,99144.0,0.0,0

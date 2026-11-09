@@ -1,0 +1,44 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+  resources:
+    - figures/*.png
+    - figures/social/*.png
+    - social/og_card.png
+
+website:
+  title: "The Load Nobody Planned For"
+  site-url: "https://johnpospisil.github.io/datacenter-grid-load/"
+  repo-url: "https://github.com/johnpospisil/datacenter-grid-load"
+  description: "After removing weather, which U.S. grid regions show structural electricity demand growth since 2022, and does it look like data-center load?"
+  image: social/og_card.png
+  open-graph: true
+  twitter-card:
+    card-style: summary_large_image
+  page-navigation: false
+  navbar: false
+
+execute:
+  echo: false
+  warning: false
+  freeze: auto   # _freeze/ is committed so the site can be rebuilt without the data
+
+format:
+  html:
+    theme:
+      light: [flatly, styles.scss, light.scss]
+      dark: [darkly, styles.scss, dark.scss]
+    respect-user-color-scheme: true
+    toc: true
+    toc-depth: 2
+    toc-location: left
+    toc-title: Contents
+    number-sections: false
+    smooth-scroll: true
+    anchor-sections: true
+    fig-responsive: true
+    lang: en-US
+    link-external-newwindow: true
+    mainfont: "Source Sans 3"

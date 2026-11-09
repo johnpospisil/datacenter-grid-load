@@ -1,0 +1,24 @@
+/*-- scss:defaults --*/
+$font-family-sans-serif: "Source Sans 3", "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+$font-size-root: 18px;
+$headings-font-weight: 700;
+
+/*-- scss:rules --*/
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap");
+
+.glg-figure { margin: 1.6rem 0 2rem; }
+.glg-figure img { width: 100%; height: auto; border-radius: 4px; }
+.glg-figure figcaption { font-size: 0.85rem; opacity: 0.8; margin-top: 0.4rem; }
+body.quarto-light .glg-figure .dark-content,
+body.quarto-dark .glg-figure .light-content { display: none; }
+.glg-zoom-hint { display: none; font-size: 0.8rem; opacity: 0.7; }
+@media (max-width: 700px) { .glg-zoom-hint { display: block; } }
+
+.lead-findings { font-size: 1.05rem; }
+.lead-findings li { margin-bottom: 0.45rem; }
+
+.callout { font-size: 0.95rem; }
+main table { font-size: 0.86rem; font-variant-numeric: tabular-nums; display: block; max-width: 100%; overflow-x: auto; }
+.table-wrap { overflow-x: auto; }
+.small { font-size: 0.85rem; }
+dl dt { font-weight: 600; margin-top: 0.6rem; }

@@ -1,0 +1,15 @@
+year,coincident_mw,billing_mw,forecast,source
+2013,,462,false,"Dominion Energy, 'Historical Data Center Demand' (Dominion Energy service territory), PJM Load Analysis Subcommittee, 2026-09-29, slide 3: https://www.pjm.com/-/media/DotCom/committees-groups/subcommittees/las/2026/20260929/20260929-item-5ai---dominion_energy.pdf"
+2014,,532,false,same
+2015,,636,false,same
+2016,,753,false,same
+2017,,931,false,same
+2018,,1113,false,same
+2019,,1421,false,same
+2020,1697,1808,false,same
+2021,2152,2302,false,same
+2022,2626,2767,false,same
+2023,3040,3183,false,same
+2024,3410,3636,false,same
+2025,3999,4237,false,same
+2026,4559,4838,true,same (2026F)

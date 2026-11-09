@@ -1,0 +1,8 @@
+series,date,label,ref
+DOM,2025-07-01,Dominion: data-center peak 4.0 GW (2025),U01
+DOM,2026-08-01,4.8 GW billing peak (Aug 2026),U02
+ERCO,2026-03-01,ERCOT: 9.0 GW of large loads approved; 3.9 GW observed peak,U19
+ERCO,2026-08-01,ERCOT pauses data-center energization,U21
+AZPS+SRP,2024-01-01,APS stops new data-center commitments,U14
+GCPD,2025-07-01,Grant PUD: data centers 280 aMW (37% of load),U23
+SOCO,2026-06-01,Southern: data-center sales +55% y/y,U11
