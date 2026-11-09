@@ -26,6 +26,10 @@ jobs:
       - uses: quarto-dev/quarto-actions/setup@v2
         with:
           version: 1.10.19
+      - name: Register a placeholder 'tf' kernel (never executed; outputs come from the freeze)
+        run: |
+          python3 -m pip install --quiet ipykernel
+          python3 -m ipykernel install --user --name tf --display-name tf
       - name: Render report (from the committed freeze)
         run: quarto render report
       - name: Add the region explorer
