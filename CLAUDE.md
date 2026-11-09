@@ -356,7 +356,7 @@ Deliverables:
 - **Checks:** in Chromium at 1280 and 390 px, light and dark: no sideways scroll, no console errors. Screenshots are in `app/screenshots/`.
 - **Bug found:** 860M retirements are stored negative, so they first drew upward; now fixed and tested. 246 tests green.
 
-### Phase 6: Review and publish (brief week 7)
+### Phase 6: Review and publish (brief week 7) ✅ DONE!
 
 **[X] ✅ DONE! Prompt 19: Pre-publication review**
 > Act as a sceptical grid-industry reviewer. Review the report, figures and code for overclaiming, methodological holes, EIA-930 quirks we missed, and unclear charts. Produce a list of issues by severity and fix the ones we agree on. Optionally draft a short DM to an energy person on Bluesky/LinkedIn asking them to sanity-check the 3 key claims.
@@ -378,11 +378,11 @@ Deliverables:
 - **H4 (PJM-derived numbers in committed docs and history):** resolved in Prompt 20. Numbers moved to the git-ignored private notes, docs reworded, and the repo published from a fresh, squashed history.
 - **Draft message:** `report/social/reviewer_dm.md`. 246 tests green.
 
-**[ ] Prompt 20: Publish (portfolio + socials)** (prepared 2026-11-08; awaiting the push)
+**[X] ✅ DONE! Prompt 20: Publish (portfolio + socials)**
 > Prepare publication: GitHub repo polish as a portfolio piece (README leading with the hero chart and 3-line findings, how to reproduce, licence, citation, data cut-off date), GitHub Pages for the report and explorer. Then draft social posts: a Hacker News "Show HN" title + first comment, an r/energy post, a Bluesky/X thread (5–7 posts, one chart each), and a LinkedIn post framed around the data-science method. Export chart images sized for each platform.
 
 Deliverables:
-- [ ] Public repo with portfolio-quality README + GitHub Pages site (report + explorer)
+- [x] Public repo with portfolio-quality README + GitHub Pages site (report + explorer)
 - [x] `report/social/` with platform-sized chart images
 - [x] Drafts for Show HN, r/energy, Bluesky thread, LinkedIn in `report/social/posts.md`
 
@@ -391,7 +391,7 @@ Deliverables:
 - **Pages:** the workflow renders from the committed freeze; tested without Python.
 - **Socials:** 7 thread images plus a 1200 × 630 link-preview card, with post drafts and alt text.
 - **PJM (H4):** numbers moved to git-ignored private notes, and history squashed to a single commit (old history in a git-ignored bundle).
-- **Remaining:** create the public GitHub repo, push, and enable Pages.
+- **Published 2026-11-08:** https://github.com/johnpospisil/datacenter-grid-load (single squashed commit plus fixes), site at https://johnpospisil.github.io/datacenter-grid-load/ with the explorer at `/explorer/`. The first Pages build failed because Quarto looks up the `tf` kernel even when outputs are frozen; the workflow now registers a placeholder kernel. Live pages checked in Chromium at desktop and phone width: no errors, all figures and the preview card load.
 
 ### Stretch (after publishing)
 - **S1 Emissions:** marginal fuel mix in high-residual hours (EIA-930 generation by fuel). Is new load met by gas?
